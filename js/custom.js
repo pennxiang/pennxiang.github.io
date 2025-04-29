@@ -9,7 +9,7 @@
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.src = Hexo.theme.base + 'video/background.mp4'; // 自动适配 baseurl
+    video.src = 'video/background.mp4'; // 自动适配 baseurl
   
     // 插入到 body 最前
     document.addEventListener('DOMContentLoaded', () => {

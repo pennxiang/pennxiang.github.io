@@ -53,6 +53,7 @@
   min-height: 300px !important;
 }
 
+/* mp4动态背景 */
 #bg-video {
   position: fixed;
   top: 0;
@@ -60,9 +61,19 @@
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: -99;
   pointer-events: none;
-  filter: brightness(0.7); /* 可选，调暗 */
+  filter: brightness(0.9); /* 可选，调暗 */
 }
 
-
+/* 音乐界面和背景图冲突解决方法 */
+.page-music::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background: rgba(255, 255, 255, 0.85); /* 半透明白遮罩 */
+  z-index: -0.5;
+}
