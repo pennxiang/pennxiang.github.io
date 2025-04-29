@@ -1,0 +1,68 @@
+/* 页脚与头图透明 */
+#footer {
+  background: transparent !important;
+}
+#page-header {
+  background: transparent !important;
+}
+
+/* 白天模式遮罩透明 */
+#footer::before {
+  background: transparent !important;
+}
+#page-header::before {
+  background: transparent !important;
+}
+
+/* 夜间模式遮罩透明 */
+[data-theme="dark"] #footer::before {
+  background: transparent !important;
+}
+[data-theme="dark"] #page-header::before {
+  background: transparent !important;
+}
+
+.index-card {
+  height: 300px;  /* 可根据实际需要调整 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 居中文章页标题 */
+#page-header .post-title {
+  text-align: center;
+  margin: 0 auto;
+}
+/* 缩小文章标题与 meta 与正文之间的间距 */
+#page-header.post-bg {
+  padding-bottom: 30px !important;
+}
+
+#page-header .post-title {
+  margin-bottom: 10px !important;
+}
+
+#page-header .meta-info {
+  margin-bottom: 10px !important;
+}
+
+/* 统一所有页面头图高度为 150px */
+#page-header {
+  height: 300px !important;
+  min-height: 300px !important;
+}
+
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+  filter: brightness(0.7); /* 可选，调暗 */
+}
+
+
