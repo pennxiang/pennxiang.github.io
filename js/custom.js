@@ -1,19 +1,25 @@
-(function () {
-    // 判断是否为移动端，移动端不加载视频
+function loadBackgroundVideo() {
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) return;
   
-    // 创建 <video> 元素
+    // 检查是否已经有视频了，避免重复插入
+    if (document.getElementById('bg-video')) return;
+  
+    // 不在音乐页加载
+    if (location.pathname.includes('/music') || location.pathname.includes('/音乐')) return;
+  
     const video = document.createElement('video');
     video.id = 'bg-video';
     video.autoplay = true;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.src = 'video/background.mp4'; // 自动适配 baseurl
+    video.src = '/medias/video/background.mp4';
+    document.body.insertBefore(video, document.body.firstChild);
+  }
   
-    // 插入到 body 最前
-    document.addEventListener('DOMContentLoaded', () => {
-      document.body.insertBefore(video, document.body.firstChild);
-    });
-  })();
+  // 初次加载
+  document.addEventListener('DOMContentLoaded', loadBackgroundVideo);
+  
+  // PJAX 刷新后也加载
+  document.addEventListener('pjax:complete', loadBackgroundVideo);
   
