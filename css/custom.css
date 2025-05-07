@@ -53,7 +53,6 @@
   min-height: 300px !important;
 }
 
-
 /* 音乐界面和背景图冲突解决方法 */
 .page-music::before {
   content: "";
