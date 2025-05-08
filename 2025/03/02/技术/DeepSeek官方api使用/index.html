@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DeepSeek官方API使用学习笔记 | 鹏</title><meta name="author" content="Penn Xiang"><meta name="copyright" content="Penn Xiang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="DeepSeek官方API使用学习笔记步骤 1：获取DeepSeek API密钥访问DeepSeek官网 打开浏览器，进入DeepSeek官网（https:&#x2F;&#x2F;www.deepseek.com）。 点击右上角的API开放平台   登录账户 在页面右上角找到“登录”按钮，点击进入登录页面。 输入你的用户名和密码，完成登录。 登录成功后一般进入下面这个界面 这里我们点击去充值，刚注册的账户会要求实名认">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek官方API使用学习笔记">
+<meta property="og:url" content="https://pennxiang.github.io/2025/03/02/%E6%8A%80%E6%9C%AF/DeepSeek%E5%AE%98%E6%96%B9api%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="鹏">
+<meta property="og:description" content="DeepSeek官方API使用学习笔记步骤 1：获取DeepSeek API密钥访问DeepSeek官网 打开浏览器，进入DeepSeek官网（https:&#x2F;&#x2F;www.deepseek.com）。 点击右上角的API开放平台   登录账户 在页面右上角找到“登录”按钮，点击进入登录页面。 输入你的用户名和密码，完成登录。 登录成功后一般进入下面这个界面 这里我们点击去充值，刚注册的账户会要求实名认">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pennxiang.github.io/img/preview.gif">
+<meta property="article:published_time" content="2025-03-02T06:17:00.000Z">
+<meta property="article:modified_time" content="2025-05-08T03:50:28.057Z">
+<meta property="article:author" content="Penn Xiang">
+<meta property="article:tag" content="deepseek">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pennxiang.github.io/img/preview.gif"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DeepSeek官方API使用学习笔记",
+  "url": "https://pennxiang.github.io/2025/03/02/%E6%8A%80%E6%9C%AF/DeepSeek%E5%AE%98%E6%96%B9api%E4%BD%BF%E7%94%A8/",
+  "image": "https://pennxiang.github.io/img/preview.gif",
+  "datePublished": "2025-03-02T06:17:00.000Z",
+  "dateModified": "2025-05-08T03:50:28.057Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Penn Xiang",
+      "url": "https://pennxiang.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://pennxiang.github.io/2025/03/02/%E6%8A%80%E6%9C%AF/DeepSeek%E5%AE%98%E6%96%B9api%E4%BD%BF%E7%94%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 22
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DeepSeek官方API使用学习笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-globe"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/intro/intro/"><i class="fa-fw fas fa-link"></i><span> 站点导航</span></a></li><li><a class="site-page child" href="/intro/links/"><i class="fa-fw fas fa-bookmark"></i><span> 聚合导航</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-file-alt"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E5%B7%A6%E5%B2%B8%E9%9B%86/"><i class="fa-fw fas fa-book"></i><span> 左岸集</span></a></li><li><a class="site-page child" href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa-fw fas fa-code"></i><span> 技术</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-rocket"></i><span> 项目</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/projects/envision/"><i class="fa-fw fas fa-lightbulb"></i><span> 设  想</span></a></li><li><a class="site-page child" href="/projects/Ongoing/"><i class="fa-fw fas fa-spinner"></i><span> 进行中</span></a></li><li><a class="site-page child" href="/projects/completed/"><i class="fa-fw fas fa-check-circle"></i><span> 完  成</span></a></li><li><a class="site-page child" href="/projects/failed/"><i class="fa-fw fas fa-skull-crossbones"></i><span> 已  凉</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/extensions/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/extensions/movies/"><i class="fa-fw fas fa-film"></i><span> 电影</span></a></li><li><a class="site-page child" href="/extensions/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/extensions/todo/"><i class="fa-fw fas fa-tasks"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/setting/"><i class="fa-fw fas fa-cog"></i><span> 设置</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/preview.gif);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">DeepSeek官方API使用学习笔记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-globe"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/intro/intro/"><i class="fa-fw fas fa-link"></i><span> 站点导航</span></a></li><li><a class="site-page child" href="/intro/links/"><i class="fa-fw fas fa-bookmark"></i><span> 聚合导航</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-file-alt"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E5%B7%A6%E5%B2%B8%E9%9B%86/"><i class="fa-fw fas fa-book"></i><span> 左岸集</span></a></li><li><a class="site-page child" href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa-fw fas fa-code"></i><span> 技术</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-rocket"></i><span> 项目</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/projects/envision/"><i class="fa-fw fas fa-lightbulb"></i><span> 设  想</span></a></li><li><a class="site-page child" href="/projects/Ongoing/"><i class="fa-fw fas fa-spinner"></i><span> 进行中</span></a></li><li><a class="site-page child" href="/projects/completed/"><i class="fa-fw fas fa-check-circle"></i><span> 完  成</span></a></li><li><a class="site-page child" href="/projects/failed/"><i class="fa-fw fas fa-skull-crossbones"></i><span> 已  凉</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/extensions/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/extensions/movies/"><i class="fa-fw fas fa-film"></i><span> 电影</span></a></li><li><a class="site-page child" href="/extensions/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/extensions/todo/"><i class="fa-fw fas fa-tasks"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/setting/"><i class="fa-fw fas fa-cog"></i><span> 设置</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">DeepSeek官方API使用学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-02T06:17:00.000Z" title="发表于 2025-03-02 14:17:00">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-08T03:50:28.057Z" title="更新于 2025-05-08 11:50:28">2025-05-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">708</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="DeepSeek官方API使用学习笔记"><a href="#DeepSeek官方API使用学习笔记" class="headerlink" title="DeepSeek官方API使用学习笔记"></a>DeepSeek官方API使用学习笔记</h1><h2 id="步骤-1：获取DeepSeek-API密钥"><a href="#步骤-1：获取DeepSeek-API密钥" class="headerlink" title="步骤 1：获取DeepSeek API密钥"></a>步骤 1：获取DeepSeek API密钥</h2><h3 id="访问DeepSeek官网"><a href="#访问DeepSeek官网" class="headerlink" title="访问DeepSeek官网"></a>访问DeepSeek官网</h3><ul>
+<li>打开浏览器，进入DeepSeek官网（<a target="_blank" rel="noopener" href="https://www.deepseek.com)./">https://www.deepseek.com）。</a></li>
+<li>点击右上角的API开放平台</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893337214-c12a6fb8-f31f-4b0c-bb86-3c17d32b6dd0.png"></p>
+<h3 id="登录账户"><a href="#登录账户" class="headerlink" title="登录账户"></a>登录账户</h3><ul>
+<li>在页面右上角找到“登录”按钮，点击进入登录页面。</li>
+<li>输入你的用户名和密码，完成登录。</li>
+<li>登录成功后一般进入下面这个界面<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893411949-efb3f0a5-a439-4c4e-a097-2d04282a0d1b.png"></li>
+<li>这里我们点击<strong>去充值</strong>，刚注册的账户会要求实名认证，认证就好<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893473836-79af88e5-724b-4908-a1de-122ad4f2f6c4.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893479648-0631a763-708d-4b9d-ac9a-8cfaa447623c.png"></li>
+<li>认证成功后，我们充值即可</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893495569-d3bf13f1-beb7-49c2-adc3-e55c2eed1672.png"></p>
+<h3 id="进入API密钥管理页面"><a href="#进入API密钥管理页面" class="headerlink" title="进入API密钥管理页面"></a>进入API密钥管理页面</h3><ul>
+<li>在左侧导航栏，找到“API keys”，点击。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893503932-d895de25-8eb4-420b-8659-e85ca7844457.png"></p>
+<h3 id="生成或查看API密钥"><a href="#生成或查看API密钥" class="headerlink" title="生成或查看API密钥"></a>生成或查看API密钥</h3><ul>
+<li>在密钥管理页面，点击“创建API key”按钮，按照提示为密钥命名。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893518549-f6766b5e-80fa-42b8-b932-462234d8d358.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893522438-97ea827d-2b97-4071-8b42-2e0c5c92296a.png"></p>
+<p>创建好后，API 密钥就生成了，我们点击**复制，**一定要复制，关闭后就无法再看到api信息，必须得重新创建。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893525749-f53cdad0-7e78-4341-91ee-6a92739ccbca.png"></p>
+<hr>
+<h2 id="步骤-2：使用CherryStudio调用DeepSeek-API"><a href="#步骤-2：使用CherryStudio调用DeepSeek-API" class="headerlink" title="步骤 2：使用CherryStudio调用DeepSeek API"></a>步骤 2：使用CherryStudio调用DeepSeek API</h2><h3 id="下载CherryStudio"><a href="#下载CherryStudio" class="headerlink" title="下载CherryStudio"></a>下载CherryStudio</h3><ul>
+<li>浏览器搜索“Cherry Studio”</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740894552117-bb036138-977d-47e4-bd92-c236a369becd.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740894674692-299a3758-9abb-4631-957c-c42a2e30d5d2.png"></p>
+<h3 id="运行Cherry-Studio"><a href="#运行Cherry-Studio" class="headerlink" title="运行Cherry Studio"></a>运行Cherry Studio</h3><ul>
+<li>下载安装后打开<strong>Cherry Studio</strong>，点击左下角设置按钮<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893533985-e23ba08d-6ecc-45ce-a5d7-bc662f37db64.png"></li>
+<li>这里有多种模型可供选择，我已经配置了<strong>硅基流动</strong>和<strong>ollama</strong>的，ollama是用来部署本地模型的。现在我们配置DeepSeek。点击<strong>深度求索</strong><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893537540-6869bc15-9d66-4ba3-8d37-ac83b2c5bbb8.png"></li>
+</ul>
+<h3 id="配置API设置"><a href="#配置API设置" class="headerlink" title="配置API设置"></a>配置API设置</h3><ul>
+<li>进入后，我们在”API 密钥”下方的输入框, 粘贴我们刚刚复制的API 密钥, 然后点击右侧<strong>检查</strong>。检查我们现在能否通过密钥访问DeepSeek</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893541734-970cf12d-29a1-49c9-9dd3-aed3c19249b4.png"></p>
+<p>这里选择要检测的模型</p>
+<blockquote>
+<p>Reasoner对应R1</p>
+<p>Chat对应V3</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893551816-077ea0ec-b993-445c-8218-dbc457ed9fe6.png"></p>
+<p>正常的话，会在1-2分钟出现<strong>连接成功</strong>字样</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893566469-697027ee-4881-49bf-8333-e4d130fc2429.png">然后我们点击红框按钮，打开DeepSeek访问</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893584295-9999d7ff-b3ef-48ca-8960-821b791dd1b6.png"></p>
+<h3 id="使用DeepSeek"><a href="#使用DeepSeek" class="headerlink" title="使用DeepSeek"></a>使用DeepSeek</h3><ul>
+<li>现在我们点击助手</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893680191-e8396c90-abe9-4176-81f3-d9759879a92f.png"></p>
+<p>这里我们添加一个新的助手</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893729949-86feed1e-2ece-49f6-8168-553af2da6336.png"></p>
+<ul>
+<li>我们可以选择<strong>Cherry Studio</strong>预制的助手，也可以选择默认助手，之后再自定义<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893762507-6ac40060-79fa-410f-b5d2-4f39933414f1.png"></li>
+<li>接着红框，选择在该对话中使用的模型<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893767689-f93b7d92-be8c-4969-a383-e9c6293b2b7d.png"></li>
+<li>可以看到<strong>DeepSeek</strong>的两个模型已经在里面了，选择其中一个 <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893774463-16158de2-8edc-4c57-98ea-3799ed9e3ca5.png"></li>
+<li>在对话框里输入我们的问题</li>
+</ul>
+<blockquote>
+<p>我们问问题的内容，就是输入tokens</p>
+<p>回答的就是输出tokens</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893592708-ba2b1f02-aa29-4da0-b178-fc4eea14fe94.png"></p>
+<h3 id="DeepSeek-API收费"><a href="#DeepSeek-API收费" class="headerlink" title="DeepSeek API收费"></a>DeepSeek API收费</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740895487015-db2fe603-f9fa-4cdf-8809-cf3d4af64271.png"></p>
+<p>详细内容可以点击下面的链接：<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing/">https://api-docs.deepseek.com/zh-cn/quick_start&#x2F;pricing&#x2F;</a></p>
+<h3 id="助手设置"><a href="#助手设置" class="headerlink" title="助手设置"></a>助手设置</h3><p>右键<strong>助手</strong>，选择<strong>编辑助手</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893798802-9f867d23-2e40-4bf6-9414-aa5f906f1ae0.png"></p>
+<p><strong>名称</strong>就是方便你识别这个助手，在实际使用我们可能有多个对话，每个对话中是不同的情形。自定义名称方便区分</p>
+<p><strong>提示词</strong>：你希望这个助手是什么样的身份，怎么和你对话等。例如这是一份开发工程师的提示词。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740895688040-b58de533-8295-4e33-a06c-fd6db3ddf4b2.png"></p>
+<p><strong>模型设置</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740893801447-f5be2f07-d829-4d65-895e-41abf2fc6941.png"></p>
+<p>temperature官网的建议如下</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740895734747-4b70dee7-8f7d-4016-be89-cc3f774956fb.png"></p>
+<p>其它内容，将鼠标移动到右方的<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2025/png/53725452/1740895807637-2668184b-7934-42d5-9dc3-30f887ae831c.png">查看描述，自行设置即可</p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://pennxiang.github.io">Penn Xiang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://pennxiang.github.io/2025/03/02/%E6%8A%80%E6%9C%AF/DeepSeek%E5%AE%98%E6%96%B9api%E4%BD%BF%E7%94%A8/">https://pennxiang.github.io/2025/03/02/技术/DeepSeek官方api使用/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://pennxiang.github.io" target="_blank">鹏</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/deepseek/">deepseek</a></div><div class="post-share"><div class="social-share" data-image="/img/preview.gif" data-sites="wechat,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/2025/03/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JDBC/JDBC/" title="JDBC笔记"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/previews/default_cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">JDBC笔记</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DeepSeek%E5%AE%98%E6%96%B9API%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">DeepSeek官方API使用学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E8%8E%B7%E5%8F%96DeepSeek-API%E5%AF%86%E9%92%A5"><span class="toc-text">步骤 1：获取DeepSeek API密钥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AEDeepSeek%E5%AE%98%E7%BD%91"><span class="toc-text">访问DeepSeek官网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E8%B4%A6%E6%88%B7"><span class="toc-text">登录账户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5API%E5%AF%86%E9%92%A5%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2"><span class="toc-text">进入API密钥管理页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%88%96%E6%9F%A5%E7%9C%8BAPI%E5%AF%86%E9%92%A5"><span class="toc-text">生成或查看API密钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E4%BD%BF%E7%94%A8CherryStudio%E8%B0%83%E7%94%A8DeepSeek-API"><span class="toc-text">步骤 2：使用CherryStudio调用DeepSeek API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDCherryStudio"><span class="toc-text">下载CherryStudio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CCherry-Studio"><span class="toc-text">运行Cherry Studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEAPI%E8%AE%BE%E7%BD%AE"><span class="toc-text">配置API设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8DeepSeek"><span class="toc-text">使用DeepSeek</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepSeek-API%E6%94%B6%E8%B4%B9"><span class="toc-text">DeepSeek API收费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A9%E6%89%8B%E8%AE%BE%E7%BD%AE"><span class="toc-text">助手设置</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Penn Xiang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-eta-gules.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-eta-gules.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/custom.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
