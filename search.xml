@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>随笔_05-09</title>
+      <link href="/2025/05/09/%E9%9A%8F%E7%AC%94/%E9%9A%8F%E7%AC%94_05-09/"/>
+      <url>/2025/05/09/%E9%9A%8F%E7%AC%94/%E9%9A%8F%E7%AC%94_05-09/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="回顾下最近"><a href="#回顾下最近" class="headerlink" title="回顾下最近"></a>回顾下最近</h1><h2 id="实习"><a href="#实习" class="headerlink" title="实习"></a>实习</h2><p>最近在实习单位还行，花了一周，终于大致知道自己需要做哪些内容了。自己学的和单位用的确确实实不一样。但是没有自学的那些基础，在单位面对新的好用的开发工具也无济于事。</p><h2 id="找暑期实习"><a href="#找暑期实习" class="headerlink" title="找暑期实习"></a>找暑期实习</h2><p>最近总是看起来很忙，看起来在找大厂实习，但是却没有好好准备过，代码随想录只刷了一半，现在可能也忘得差不多了。八股文也没有系统性背过。好似有计划的行使，却又在原地踏步。<br>今天做了到携程的测评，感觉自己连测评都有可能过不了，然后今天才发现，我的谷歌浏览器的摄像头是被火绒给关闭了权限，所以才会在初始界面卡住。可我已经做了2-3道笔试题啊！<br>明后两天又是两个笔试，又好似裸考般。oppo甚至把后端放在的二志愿，明天先是应用开发的笔试，kotlin都没学啊！</p><h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><p>昨天去了趟健身房，好久没运动了，运动的感觉还是很不错的。还是挺追忆那个过去有干劲的自己。</p><h1 id="尾言"><a href="#尾言" class="headerlink" title="尾言"></a>尾言</h1><p>最后还是鼓励下自己吧！毕竟能让自己走出困境的只有自己，能找到工作的也只有不断地积累，计算机这门行业就是靠本事吃饭，有本事你就上！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 一些流水账 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java知识点梳理</title>
+      <link href="/2025/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/"/>
+      <url>/2025/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="StringBuilder和StringBuffer的区别"><a href="#StringBuilder和StringBuffer的区别" class="headerlink" title="StringBuilder和StringBuffer的区别"></a>StringBuilder和StringBuffer的区别</h2><details>    <summary>答</summary>    </detailes>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>找工作为了什么</title>
       <link href="/2025/05/07/%E6%89%BE%E5%B7%A5%E4%BD%9C%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88/"/>
       <url>/2025/05/07/%E6%89%BE%E5%B7%A5%E4%BD%9C%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88/</url>
@@ -33,12 +83,12 @@
       <link href="/2025/05/07/%E4%BA%94%E4%B8%80%E6%80%BB%E7%BB%93/"/>
       <url>/2025/05/07/%E4%BA%94%E4%B8%80%E6%80%BB%E7%BB%93/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>这个五一过的还是比较充实, 早上起来, 刷手机、看b站（就是在混）. 然后下午跟着视频敲代码.<br>可算跟着教程一步一步写完了一个大的业务项目. 简历上终于有拿得出手的了. 虽然还是五六年前的开源项目。<br><br>感觉对我来说,要么就玩得不想学习,要么就一直保持学习的劲头。就像以前跑10公里, 一样要么不去,躺宿舍摆烂;要么就去运动地酣畅淋漓.<br><br>啊!~ 好像没什么想写的了, 毕竟这个五一就是在家看B站,跟做项目这两点一线. 可不写就是在脑子里憋着. <br></p><blockquote><p>写点东西也好, 锻炼锻炼写文笔和语言组织能力. </p></blockquote>]]></content>
       
       
       <categories>
           
-          <category> 随笔 </category>
+          <category> 一些流水账 </category>
           
       </categories>
       
@@ -58,7 +108,7 @@
       <link href="/2025/05/07/%E4%BA%BA%E7%94%9F%E5%87%A0%E4%BD%95/"/>
       <url>/2025/05/07/%E4%BA%BA%E7%94%9F%E5%87%A0%E4%BD%95/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>人生几何, 譬如朝露, 去日苦多.</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>人生几何, 譬如朝露, 去日苦多.</p></blockquote><p>最近脑子里就是蹦出来这几句出自曹操的诗句. 是啊! 人生几何, 我们人生是怎样的呢? <br><br>有时候我总是抱怨, 为什么我出生不是达官显贵. 可有时候又会告诉自己, 有些东西虽然与生俱来, 可有些东西却是厚积薄发.<br>光抱怨其实解决不了任何问题, 我也成为不了《觉醒年代》的诸位先辈. 我的能力有限, 只能期望未来能把自己过好,过上自己的生活.</p><pre><code>- 2025-05-10 00:02</code></pre>]]></content>
       
       
       <categories>
