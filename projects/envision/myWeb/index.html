@@ -1,0 +1,751 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>个人网站 | 鹏</title><meta name="author" content="Penn Xiang"><meta name="copyright" content="Penn Xiang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="一个具备内容展示、工具集成、权限控制、个性化体验的自建型全栈个人网站，面向所有人开放，目前处于项目需求分析和技术选型阶段。 需求分析业务需求1. 项目背景与目标本项目旨在构建一个个人综合网站平台，用于展示内容创作（博客、项目、生活随笔）、管理工具模块（如待办、清单、歌单等），并支持个性化信息管理与对外展示。 网站需支持游客访问、个性化授权阅读、站长内容维护与扩展功能管理，可持续迭代并具备良好的部署">
+<meta property="og:type" content="website">
+<meta property="og:title" content="个人网站">
+<meta property="og:url" content="https://pennxiang.github.io/projects/envision/myWeb/index.html">
+<meta property="og:site_name" content="鹏">
+<meta property="og:description" content="一个具备内容展示、工具集成、权限控制、个性化体验的自建型全栈个人网站，面向所有人开放，目前处于项目需求分析和技术选型阶段。 需求分析业务需求1. 项目背景与目标本项目旨在构建一个个人综合网站平台，用于展示内容创作（博客、项目、生活随笔）、管理工具模块（如待办、清单、歌单等），并支持个性化信息管理与对外展示。 网站需支持游客访问、个性化授权阅读、站长内容维护与扩展功能管理，可持续迭代并具备良好的部署">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pennxiang.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2025-04-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-14T08:55:46.329Z">
+<meta property="article:author" content="Penn Xiang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pennxiang.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://pennxiang.github.io/projects/envision/myWeb/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 22
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":-1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '个人网站',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-globe"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/intro/intro/"><i class="fa-fw fas fa-link"></i><span> 站点导航</span></a></li><li><a class="site-page child" href="/intro/links/"><i class="fa-fw fas fa-bookmark"></i><span> 聚合导航</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-file-alt"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E5%B7%A6%E5%B2%B8%E9%9B%86/"><i class="fa-fw fas fa-book"></i><span> 左岸集</span></a></li><li><a class="site-page child" href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa-fw fas fa-code"></i><span> 技术</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-rocket"></i><span> 项目</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/projects/envision/"><i class="fa-fw fas fa-lightbulb"></i><span> 设  想</span></a></li><li><a class="site-page child" href="/projects/Ongoing/"><i class="fa-fw fas fa-spinner"></i><span> 进行中</span></a></li><li><a class="site-page child" href="/projects/completed/"><i class="fa-fw fas fa-check-circle"></i><span> 完  成</span></a></li><li><a class="site-page child" href="/projects/failed/"><i class="fa-fw fas fa-skull-crossbones"></i><span> 已  凉</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/extensions/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/extensions/movies/"><i class="fa-fw fas fa-film"></i><span> 电影</span></a></li><li><a class="site-page child" href="/extensions/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/extensions/todo/"><i class="fa-fw fas fa-tasks"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/setting/"><i class="fa-fw fas fa-cog"></i><span> 设置</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-globe"></i><span> 导航</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/intro/intro/"><i class="fa-fw fas fa-link"></i><span> 站点导航</span></a></li><li><a class="site-page child" href="/intro/links/"><i class="fa-fw fas fa-bookmark"></i><span> 聚合导航</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-file-alt"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E5%B7%A6%E5%B2%B8%E9%9B%86/"><i class="fa-fw fas fa-book"></i><span> 左岸集</span></a></li><li><a class="site-page child" href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa-fw fas fa-code"></i><span> 技术</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-rocket"></i><span> 项目</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/projects/envision/"><i class="fa-fw fas fa-lightbulb"></i><span> 设  想</span></a></li><li><a class="site-page child" href="/projects/Ongoing/"><i class="fa-fw fas fa-spinner"></i><span> 进行中</span></a></li><li><a class="site-page child" href="/projects/completed/"><i class="fa-fw fas fa-check-circle"></i><span> 完  成</span></a></li><li><a class="site-page child" href="/projects/failed/"><i class="fa-fw fas fa-skull-crossbones"></i><span> 已  凉</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/extensions/musics/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/extensions/movies/"><i class="fa-fw fas fa-film"></i><span> 电影</span></a></li><li><a class="site-page child" href="/extensions/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/extensions/todo/"><i class="fa-fw fas fa-tasks"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/setting/"><i class="fa-fw fas fa-cog"></i><span> 设置</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">个人网站</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><p>一个具备内容展示、工具集成、权限控制、个性化体验的自建型全栈个人网站，面向所有人开放，目前处于项目需求分析和技术选型阶段。</p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="业务需求"><a href="#业务需求" class="headerlink" title="业务需求"></a>业务需求</h3><h4 id="1-项目背景与目标"><a href="#1-项目背景与目标" class="headerlink" title="1. 项目背景与目标"></a>1. 项目背景与目标</h4><p>本项目旨在构建一个个人综合网站平台，用于展示内容创作（博客、项目、生活随笔）、管理工具模块（如待办、清单、歌单等），并支持个性化信息管理与对外展示。</p>
+<p>网站需支持游客访问、个性化授权阅读、站长内容维护与扩展功能管理，可持续迭代并具备良好的部署与安全能力。</p>
+<h4 id="2-目标用户"><a href="#2-目标用户" class="headerlink" title="2. 目标用户"></a>2. 目标用户</h4><table>
+<thead>
+<tr>
+<th>用户角色</th>
+<th>特征</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>站长（管理员）</td>
+<td>唯一登录用户</td>
+<td>全站内容管理权限，创建用户</td>
+</tr>
+<tr>
+<td>授权用户</td>
+<td>无注册，仅由站长创建</td>
+<td>可访问部分保护内容</td>
+</tr>
+<tr>
+<td>游客</td>
+<td>所有人</td>
+<td>可浏览公开内容、留言、评论等基础功能</td>
+</tr>
+</tbody></table>
+<h4 id="3-主要使用场景"><a href="#3-主要使用场景" class="headerlink" title="3. 主要使用场景"></a>3. 主要使用场景</h4><ul>
+<li><p>作为个人博客与作品集门户</p>
+</li>
+<li><p>作为工具中心 &#x2F; 自用网页工作台</p>
+</li>
+<li><p>作为内容创作与记录平台</p>
+</li>
+<li><p>支持移动端阅读与维护、跨设备同步使用</p>
+</li>
+</ul>
+<h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><h4 id="1-博客系统"><a href="#1-博客系统" class="headerlink" title="1. 博客系统"></a>1. 博客系统</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>博客发布</td>
+<td>使用 Markdown 编辑器撰写，支持上传图片、自动生成 HTML</td>
+</tr>
+<tr>
+<td>博客分类 &#x2F; 标签</td>
+<td>支持多个分类、标签管理与搜索</td>
+</tr>
+<tr>
+<td>归档展示</td>
+<td>按月自动归档，升序排列</td>
+</tr>
+<tr>
+<td>评论功能</td>
+<td>游客可评论，输入昵称+邮箱+站点（可选），头像使用 Gravatar</td>
+</tr>
+<tr>
+<td>权限控制</td>
+<td>支持“公共 &#x2F; 保护”两类权限，保护博客需授权用户登录访问</td>
+</tr>
+<tr>
+<td>浏览量统计</td>
+<td>每篇博客自动计数，生成预计查看时间，后台可查看热度</td>
+</tr>
+<tr>
+<td>博客置顶</td>
+<td>支持设置置顶博客优先展示</td>
+</tr>
+</tbody></table>
+<h4 id="2-项目展示模块"><a href="#2-项目展示模块" class="headerlink" title="2. 项目展示模块"></a>2. 项目展示模块</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目新增 &#x2F; 编辑 &#x2F; 删除</td>
+<td>管理员可操作，结构与博客类似</td>
+</tr>
+<tr>
+<td>项目属性管理</td>
+<td>包含名称、技术栈、封面图、简要描述、仓库地址</td>
+</tr>
+<tr>
+<td>状态标识</td>
+<td>支持设想 &#x2F; 进行中 &#x2F; 已凉状态标记</td>
+</tr>
+<tr>
+<td>权限控制</td>
+<td>游客可查看，无评论，无互动入口</td>
+</tr>
+</tbody></table>
+<h4 id="3-工具模块"><a href="#3-工具模块" class="headerlink" title="3. 工具模块"></a>3. 工具模块</h4><h5 id="TodoList"><a href="#TodoList" class="headerlink" title="TodoList"></a>TodoList</h5><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建 &#x2F; 修改 &#x2F; 删除事项</td>
+<td>基础功能</td>
+</tr>
+<tr>
+<td>置顶桌面支持</td>
+<td>计划通过 PWA&#x2F;Electron 实现独立插件</td>
+</tr>
+<tr>
+<td>今日高亮</td>
+<td>可用于首页卡片形式展示</td>
+</tr>
+</tbody></table>
+<h5 id="歌单模块"><a href="#歌单模块" class="headerlink" title="歌单模块"></a>歌单模块</h5><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>支持播放 &#x2F; 暂停 &#x2F; 切歌</td>
+<td>本地优先，从 <code>/music</code> 文件夹读取</td>
+</tr>
+<tr>
+<td>网络搜索播放</td>
+<td>若本地无资源，支持在线播放</td>
+</tr>
+<tr>
+<td>扩展能力</td>
+<td>支持读取歌词 &#x2F; 歌词高亮 &#x2F; 播放列表（预留接口）</td>
+</tr>
+</tbody></table>
+<h5 id="书单-影单"><a href="#书单-影单" class="headerlink" title="书单 &#x2F; 影单"></a>书单 &#x2F; 影单</h5><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自定义记录</td>
+<td>结构与博客一致，支持分类、标签、评分</td>
+</tr>
+<tr>
+<td>阅读 &#x2F; 观看状态</td>
+<td>支持“想读 &#x2F; 读过”、“想看 &#x2F; 看过”标记（可扩展）</td>
+</tr>
+<tr>
+<td>简评 + Markdown 详情页</td>
+<td>可填写内容与阅读笔记 &#x2F; 观后感</td>
+</tr>
+</tbody></table>
+<h4 id="4-留言板模块"><a href="#4-留言板模块" class="headerlink" title="4. 留言板模块"></a>4. 留言板模块</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>游客留言</td>
+<td>填写昵称、内容、邮箱和站点</td>
+</tr>
+<tr>
+<td>管理员回复</td>
+<td>通过后台操作，支持一对一回复</td>
+</tr>
+<tr>
+<td>邮箱通知</td>
+<td>若游客填写邮箱，则在回复后触发通知邮件</td>
+</tr>
+</tbody></table>
+<h4 id="5-关于我页面"><a href="#5-关于我页面" class="headerlink" title="5. 关于我页面"></a>5. 关于我页面</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态展示</td>
+<td>展示站长介绍、经历、联系方式、建站初心等</td>
+</tr>
+<tr>
+<td>管理员可编辑</td>
+<td>使用 Markdown 编辑，可首次创建或随时更新</td>
+</tr>
+</tbody></table>
+<h4 id="6-网站导航与首页模块"><a href="#6-网站导航与首页模块" class="headerlink" title="6. 网站导航与首页模块"></a>6. 网站导航与首页模块</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>网站导航</td>
+<td>类似浏览器导航栏，支持最多 20 个链接收藏展示，仅管理员可见</td>
+</tr>
+<tr>
+<td>访问统计</td>
+<td>网站右下角显示总访问人次</td>
+</tr>
+<tr>
+<td>首页内容分区</td>
+<td>左侧简介&#x2F;搜索&#x2F;标签区，右侧模块卡片（Todo、导航等）</td>
+</tr>
+<tr>
+<td>友情链接</td>
+<td>模块预留，未来可启用链接管理功能</td>
+</tr>
+</tbody></table>
+<h4 id="7-权限与用户系统"><a href="#7-权限与用户系统" class="headerlink" title="7. 权限与用户系统"></a>7. 权限与用户系统</h4><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>管理员登录</td>
+<td>通过 JWT 登录，拥有所有管理权限</td>
+</tr>
+<tr>
+<td>用户创建</td>
+<td>用户仅由站长创建，无开放注册入口</td>
+</tr>
+<tr>
+<td>游客访问</td>
+<td>默认权限为只读，访问公共页面与留言&#x2F;评论接口</td>
+</tr>
+</tbody></table>
+<h4 id="8-安全与部署"><a href="#8-安全与部署" class="headerlink" title="8. 安全与部署"></a>8. 安全与部署</h4><table>
+<thead>
+<tr>
+<th>安全需求</th>
+<th>措施</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接口限速</td>
+<td>对评论&#x2F;留言等敏感接口进行频率限制</td>
+</tr>
+<tr>
+<td>CDN 加速</td>
+<td>接入 Cloudflare 实现静态资源缓存、访问优化、防攻击</td>
+</tr>
+<tr>
+<td>防盗链</td>
+<td>图片等资源设置防盗链规则</td>
+</tr>
+<tr>
+<td>静态资源压缩</td>
+<td>配置前端打包优化，减小带宽成本</td>
+</tr>
+<tr>
+<td>日志审计</td>
+<td>后端记录所有重要操作日志，便于排查问题</td>
+</tr>
+</tbody></table>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术栈 &#x2F; 工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前端</td>
+<td>Vue 3 + Vite + Vue Router + Pinia</td>
+<td>组件化结构、响应式、自定义主题</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>Spring Boot + MyBatis Plus + JWT</td>
+<td>RESTful 接口、权限控制、业务逻辑实现</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>MySQL + Redis（可选）</td>
+<td>数据持久化 + 缓存优化</td>
+</tr>
+<tr>
+<td>编辑器</td>
+<td>Markdown 编辑器（如 Toast UI）</td>
+<td>博客 &#x2F; 项目 &#x2F; 关于页内容编辑</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>Nginx + Cloudflare + 域名解析</td>
+<td>CDN加速、防攻击、HTTPS、静态代理</td>
+</tr>
+</tbody></table>
+<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><pre class="line-numbers language-none"><code class="language-none">前端（Vue 3） &lt;--&gt; Nginx反向代理 &lt;--&gt; 后端（Spring Boot）&lt;--&gt; MySQL数据库<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="技术选型-1"><a href="#技术选型-1" class="headerlink" title="技术选型"></a>技术选型</h3><h4 id="前端技术栈"><a href="#前端技术栈" class="headerlink" title="前端技术栈"></a>前端技术栈</h4><ul>
+<li>Vue 3 - 渐进式JavaScript框架</li>
+<li>Element Plus UI - 现代化的UI组件库</li>
+<li>Vite - 下一代前端构建工具</li>
+<li>Vue Router - 官方路由管理器</li>
+<li>Pinia - Vue 3的状态管理库</li>
+<li>Axios - HTTP客户端</li>
+<li>ECharts - 数据可视化图表库</li>
+<li>PDF-lib - PDF生成工具</li>
+</ul>
+<h4 id="后端技术栈"><a href="#后端技术栈" class="headerlink" title="后端技术栈"></a>后端技术栈</h4><ul>
+<li>Spring Boot 3 - 应用开发框架</li>
+<li>Spring Security - 安全框架</li>
+<li>Spring Data JPA - 数据访问层</li>
+<li>MySQL 8 - 关系型数据库</li>
+<li>JWT - 用户认证</li>
+<li>WebSocket - 实时通信</li>
+</ul>
+<h3 id="功能特性"><a href="#功能特性" class="headerlink" title="功能特性"></a>功能特性</h3><h4 id="用户功能"><a href="#用户功能" class="headerlink" title="用户功能"></a>用户功能</h4><ul>
+<li>用户注册和登录<ul>
+<li>支持用户名&#x2F;密码注册</li>
+<li>基于JWT的安全认证</li>
+<li>记住登录状态</li>
+</ul>
+</li>
+<li>查看当前可用的投票列表<ul>
+<li>支持分页和筛选</li>
+<li>实时更新投票状态</li>
+</ul>
+</li>
+<li>参与投票并查看投票结果<ul>
+<li>防重复投票机制</li>
+<li>实时显示投票结果</li>
+<li>多种图表展示方式</li>
+</ul>
+</li>
+<li>查看历史投票记录<ul>
+<li>个人投票历史</li>
+<li>参与率统计</li>
+</ul>
+</li>
+<li>移动端适配，支持响应式布局<ul>
+<li>自适应界面设计</li>
+<li>触摸优化交互</li>
+</ul>
+</li>
+</ul>
+<h4 id="管理功能"><a href="#管理功能" class="headerlink" title="管理功能"></a>管理功能</h4><ul>
+<li>创建和管理投票主题<ul>
+<li>多选项投票支持</li>
+<li>时间限制设置</li>
+<li>权限控制配置</li>
+</ul>
+</li>
+<li>用户权限管理<ul>
+<li>角色分配</li>
+<li>权限细粒度控制</li>
+<li>用户状态管理</li>
+</ul>
+</li>
+<li>投票数据统计和分析<ul>
+<li>实时统计</li>
+<li>多维度分析</li>
+<li>图表可视化</li>
+</ul>
+</li>
+<li>生成投票报告<ul>
+<li>PDF格式导出</li>
+<li>数据图表集成</li>
+</ul>
+</li>
+<li>系统配置管理<ul>
+<li>统计任务配置</li>
+<li>系统参数设置</li>
+</ul>
+</li>
+</ul>
+<h4 id="系统特性"><a href="#系统特性" class="headerlink" title="系统特性"></a>系统特性</h4><ul>
+<li>实时统计和更新<ul>
+<li>WebSocket实时推送</li>
+<li>定时统计任务</li>
+</ul>
+</li>
+<li>防止重复投票<ul>
+<li>用户验证</li>
+<li>IP限制</li>
+<li>时间限制</li>
+</ul>
+</li>
+<li>数据可视化展示<ul>
+<li>多种图表类型</li>
+<li>自定义显示配置</li>
+</ul>
+</li>
+<li>完整的权限控制<ul>
+<li>基于角色的访问控制(RBAC)</li>
+<li>细粒度权限管理</li>
+</ul>
+</li>
+<li>安全的用户认证<ul>
+<li>JWT令牌认证</li>
+<li>密码加密存储</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目链接"><a href="#项目链接" class="headerlink" title="项目链接"></a>项目链接</h2><h2 id="运行截图"><a href="#运行截图" class="headerlink" title="运行截图"></a>运行截图</h2></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Penn Xiang</div><div class="author-info-description">一只菜狗programmer</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/pennxiang"><i class="fab fa-github"></i><span>前往GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://penn.xiang@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_16223869" target="_blank" title="CSDN"><i class="fab fa-cuttlefish" style="color: #ff5722;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/09/%E9%9A%8F%E7%AC%94/%E9%9A%8F%E7%AC%94_05-09/" title="随笔_05-09">随笔_05-09</a><time datetime="2025-05-09T15:36:16.000Z" title="发表于 2025-05-09 23:36:16">2025-05-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/Java%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" title="Java知识点梳理">Java知识点梳理</a><time datetime="2025-05-09T01:30:56.000Z" title="发表于 2025-05-09 09:30:56">2025-05-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/07/%E6%89%BE%E5%B7%A5%E4%BD%9C%E4%B8%BA%E4%BA%86%E4%BB%80%E4%B9%88/" title="找工作为了什么">找工作为了什么</a><time datetime="2025-05-07T08:17:17.000Z" title="发表于 2025-05-07 16:17:17">2025-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/07/%E4%BA%94%E4%B8%80%E6%80%BB%E7%BB%93/" title="五一总结">五一总结</a><time datetime="2025-05-07T08:09:44.000Z" title="发表于 2025-05-07 16:09:44">2025-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/07/%E4%BA%BA%E7%94%9F%E5%87%A0%E4%BD%95/" title="人生几何">人生几何</a><time datetime="2025-05-07T08:06:13.000Z" title="发表于 2025-05-07 16:06:13">2025-05-07</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%80%E4%BA%9B%E6%B5%81%E6%B0%B4%E8%B4%A6/"><span class="card-category-list-name">一些流水账</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E5%AE%83/"><span class="card-category-list-name">其它</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%A6%E5%B2%B8%E9%9B%86/"><span class="card-category-list-name">左岸集</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/"><span class="card-category-list-name">技术</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9D%82%E8%B0%88/"><span class="card-category-list-name">杂谈</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">17</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-04-13T18:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">92.6k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-05-14T09:06:59.250Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Penn Xiang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-eta-gules.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-eta-gules.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/custom.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
